@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @RestController
 @AllArgsConstructor
-@RequestMapping("/")
+@RequestMapping("/todo")
 public class TodoController {
 
     private final TodoService service;
@@ -41,33 +41,38 @@ public class TodoController {
         return ResponseEntity.ok(new TodoResponse(result));
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<TodoResponse> readOne(@PathVariable Long id){
+        log.info("READ ONE");
         TodoEntity result = service.searchById(id);
         return ResponseEntity.ok(new TodoResponse(result));
     }
 
     @GetMapping
     public ResponseEntity<List<TodoResponse>> readAll(){
+        log.info("READ ALL");
         List<TodoEntity> result = service.searchAll();
         List<TodoResponse> responses = result.stream().map(TodoResponse::new).collect(Collectors.toList());
         return ResponseEntity.ok(responses);
     }
 
-    @PatchMapping("{id}")
+    @PatchMapping("/{id}")
     public ResponseEntity<TodoResponse> update(@PathVariable Long id, @RequestBody TodoRequest request){
+        log.info("UPDATE");
         TodoEntity result = service.updateById(id, request);
         return ResponseEntity.ok(new TodoResponse(result));
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteOne(@PathVariable Long id){
+        log.info("DELETE ONE");
         service.deleteById(id);
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping
     public ResponseEntity<?> deleteAll(){
+        log.info("DELETE ALL");
         service.deleteAll();
         return ResponseEntity.ok().build();
     }
