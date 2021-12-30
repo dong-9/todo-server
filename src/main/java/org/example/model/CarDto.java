@@ -8,11 +8,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AccountRequest {
-
-    private String account;
-    private String address;
-    private String password;
-    @JsonProperty("phone_number")
-    private String phoneNumber;
+public class CarDto {
+    private String name;
+    @JsonProperty("car_number")
+    private String carNumber;
 }
